@@ -1,0 +1,1586 @@
+
+
+Task: Select all fields for all brands in the brands table.
+
+The result set for this query should be every record in the brands table.
+
+SQL [1]> select \hint
+... [1]> \hint
+Use the wildcard '*' (without quotes) in your SELECT statement.
+
+SQL [1]> select * from list of relations
+... [1]> select * from schema
+... [1]> select * from type
+... [1]> select * from models
+... [1]> select * from cars
+... [1]> select * from brands
+... [1]> SELECT * FROM brands
+... [1]> SELECT * FROM brands WHERE brands
+... [1]> SELECT * FROM name WHERE brands
+... [1]> SELECT * FROM name WHERE brands_name
+... [1]> SELECT * FROM name WHERE brands_name
+... [1]> ;
+There was a problem with your SQL syntax:
+
+	syntax error at or near "relations"
+LINE 2: select * from list of relations
+                              ^
+
+
+
+SQL [1]> SELECT * FROM brands;
+
+  id   |    name    | founded |            headquarters            | discontinued 
+-------+------------+---------+------------------------------------+--------------
+     1 | Ford       |    1903 | Dearborn, MI                       |              
+     2 | Chrysler   |    1925 | Auburn Hills, Michigan             |              
+     3 | Hillman    |    1907 | Ryton-on-Dunsmore, England         |         1981 
+     4 | Chevrolet  |    1911 | Detroit, Michigan                  |              
+     5 | Cadillac   |    1902 | New York City, NY                  |              
+     6 | BMW        |    1916 | Munich, Bavaria, Germany           |              
+     7 | Austin     |    1905 | Longbridge, England                |         1987 
+     8 | Fairthorpe |    1954 | Chalfont St Peter, Buckinghamshire |         1976 
+     9 | Studebaker |    1852 | South Bend, Indiana                |         1967 
+    10 | Pontiac    |    1926 | Detroit, MI                        |         2010 
+    11 | Buick      |    1903 | Detroit, MI                        |              
+    12 | Rambler    |    1901 | Kenosha, Washington                |         1969 
+    13 | Plymouth   |    1928 | Auburn Hills, Michigan             |         2001 
+    14 | Tesla      |    2003 | Palo Alto, CA                      |              
+(14 rows)
+
+	Correct!
+
+SELECT * FROM brands;
+
+	Moving on...
+
+
+Problem  2
+----------
+
+
+
+Task: Select all fields for all car models made by Pontiac in the 
+models table. 
+
+The result set should be:
+  id   | year  | brand_name |    name
+-------+-------+------------+------------
+    25 |  1961 | Pontiac    | Tempest
+    27 |  1962 | Pontiac    | Grand Prix
+    36 |  1963 | Pontiac    | Grand Prix
+    42 |  1964 | Pontiac    | GTO
+    43 |  1964 | Pontiac    | LeMans
+    44 |  1964 | Pontiac    | Bonneville
+    45 |  1964 | Pontiac    | Grand Prix
+(7 rows)
+
+
+SQL [2]> \dt
+
+   Schema   |     Name      |   Type   |   Owner    
+------------+---------------+----------+------------
+ public     | brands        | table    | PCK        
+ public     | brands_id_seq | sequence | PCK        
+ public     | models        | table    | PCK        
+ public     | models_id_seq | sequence | PCK        
+(4 rows)
+
+SQL [2]> \d brands
+
+    Column    |         Type          | Modifiers 
+--------------+-----------------------+-----------
+ id           | integer               | not null  
+ name         | character varying(50) | not null  
+ founded      | integer               |           
+ headquarters | character varying(50) |           
+ discontinued | integer               |           
+(5 rows)
+
+SQL [2]> SELECT * FROM brands WHERE name = 'Pontiac'
+... [2]> ;
+
+  id   |  name   | founded | headquarters | discontinued 
+-------+---------+---------+--------------+--------------
+    10 | Pontiac |    1926 | Detroit, MI  |         2010 
+(1 rows)
+
+(results do not match answer)
+
+
+SQL [2]> SELECT * FROM brands;
+
+  id   |    name    | founded |            headquarters            | discontinued 
+-------+------------+---------+------------------------------------+--------------
+     1 | Ford       |    1903 | Dearborn, MI                       |              
+     2 | Chrysler   |    1925 | Auburn Hills, Michigan             |              
+     3 | Hillman    |    1907 | Ryton-on-Dunsmore, England         |         1981 
+     4 | Chevrolet  |    1911 | Detroit, Michigan                  |              
+     5 | Cadillac   |    1902 | New York City, NY                  |              
+     6 | BMW        |    1916 | Munich, Bavaria, Germany           |              
+     7 | Austin     |    1905 | Longbridge, England                |         1987 
+     8 | Fairthorpe |    1954 | Chalfont St Peter, Buckinghamshire |         1976 
+     9 | Studebaker |    1852 | South Bend, Indiana                |         1967 
+    10 | Pontiac    |    1926 | Detroit, MI                        |         2010 
+    11 | Buick      |    1903 | Detroit, MI                        |              
+    12 | Rambler    |    1901 | Kenosha, Washington                |         1969 
+    13 | Plymouth   |    1928 | Auburn Hills, Michigan             |         2001 
+    14 | Tesla      |    2003 | Palo Alto, CA                      |              
+(14 rows)
+
+(results do not match answer)
+
+
+SQL [2]> SELECT * FROM models WHERE brand_name;
+There was a problem with your SQL syntax:
+
+	argument of WHERE must be type boolean, not type character varying
+LINE 2: SELECT * FROM models WHERE brand_name;
+                                   ^
+
+
+
+SQL [2]> SELECT * FROM models WHERE brand_name = 'Pontiac';
+
+  id   | year  | brand_name |    name    
+-------+-------+------------+------------
+    24 |  1961 | Pontiac    | Tempest    
+    26 |  1962 | Pontiac    | Grand Prix 
+    35 |  1963 | Pontiac    | Grand Prix 
+    41 |  1964 | Pontiac    | GTO        
+    42 |  1964 | Pontiac    | LeMans     
+    43 |  1964 | Pontiac    | Bonneville 
+    44 |  1964 | Pontiac    | Grand Prix 
+(7 rows)
+
+	Correct!
+
+SELECT * FROM models WHERE brand_name = 'Pontiac';
+
+	Moving on...
+
+
+Problem  3
+----------
+
+
+
+Task: Select the brand name and model name for all models made in 
+1964 from the models table. 
+
+The result set should be:
+ brand_name |    name
+------------+-------------
+ Chevrolet  | Corvette
+ Ford       | Mustang
+ Ford       | Galaxie
+ Pontiac    | GTO
+ Pontiac    | LeMans
+ Pontiac    | Bonneville
+ Pontiac    | Grand Prix
+ Plymouth   | Fury
+ Studebaker | Avanti
+ Austin     | Mini Cooper
+ (10 rows)
+ 
+
+SQL [3]> SELECT brand_name, name FROM models WHERE year = '1964';
+
+ brand_name |    name     
+------------+-------------
+ Chevrolet  | Corvette    
+ Ford       | Mustang     
+ Ford       | Galaxie     
+ Pontiac    | GTO         
+ Pontiac    | LeMans      
+ Pontiac    | Bonneville  
+ Pontiac    | Grand Prix  
+ Plymouth   | Fury        
+ Studebaker | Avanti      
+ Austin     | Mini Cooper 
+(10 rows)
+
+	Correct!
+
+SELECT brand_name, name FROM models WHERE year = '1964';
+
+	Moving on...
+
+
+Problem  4
+----------
+
+
+
+Task: Select the model name, brand name, and headquarters for 
+the Ford Mustang from the models and brands tables.
+
+The result set should be:
+  name   | brand_name | headquarters
+---------+------------+--------------
+ Mustang | Ford       | Dearborn, MI
+ (1 rows)
+
+
+SQL [4]> SELECT * FROM models;
+
+  id   | year  | brand_name |       name       
+-------+-------+------------+------------------
+     1 |  1909 | Ford       | Model T          
+     2 |  1926 | Chrysler   | Imperial         
+     3 |  1950 | Hillman    | Minx Magnificent 
+     4 |  1953 | Chevrolet  | Corvette         
+     5 |  1954 | Chevrolet  | Corvette         
+     6 |  1954 | Cadillac   | Fleetwood        
+     7 |  1955 | Chevrolet  | Corvette         
+     8 |  1955 | Ford       | Thunderbird      
+     9 |  1956 | Chevrolet  | Corvette         
+    10 |  1957 | Chevrolet  | Corvette         
+    11 |  1957 | BMW        | 600              
+    12 |  1958 | Chevrolet  | Corvette         
+    13 |  1958 | BMW        | 600              
+    14 |  1958 | Ford       | Thunderbird      
+    15 |  1959 | Austin     | Mini             
+    16 |  1959 | Chevrolet  | Corvette         
+    17 |  1959 | BMW        | 600              
+    18 |  1960 | Chevrolet  | Corvair          
+    19 |  1960 | Chevrolet  | Corvette         
+    20 |  1960 | Fillmore   | Fillmore         
+(47 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [4]> SELECT brand_name, name, headquarters FROM models JOIN brands ON models.brand_name = brands.name;
+There was a problem with your SQL syntax:
+
+	column reference "name" is ambiguous
+LINE 2: SELECT brand_name, name, headquarters FROM models JOIN brand...
+                           ^
+
+
+
+SQL [4]> SELECT brand_name, models.name, headquarters FROM models JOIN brands ON models.brand_name = brands.name;
+
+ brand_name |       name       |            headquarters            
+------------+------------------+------------------------------------
+ Ford       | Model T          | Dearborn, MI                       
+ Chrysler   | Imperial         | Auburn Hills, Michigan             
+ Hillman    | Minx Magnificent | Ryton-on-Dunsmore, England         
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ Cadillac   | Fleetwood        | New York City, NY                  
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ Ford       | Thunderbird      | Dearborn, MI                       
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ BMW        | 600              | Munich, Bavaria, Germany           
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ BMW        | 600              | Munich, Bavaria, Germany           
+ Ford       | Thunderbird      | Dearborn, MI                       
+ Austin     | Mini             | Longbridge, England                
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ BMW        | 600              | Munich, Bavaria, Germany           
+ Chevrolet  | Corvair          | Detroit, Michigan                  
+ Chevrolet  | Corvette         | Detroit, Michigan                  
+ Fairthorpe | Rockette         | Chalfont St Peter, Buckinghamshire 
+(46 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [4]> SELECT brand_name, models.name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE models = '
+... [4]>   id   | year  | brand_name |       name       
+... [4]> -------+-------+------------+------------------
+... [4]>      1 |  1909 | Ford       | Model T          
+... [4]>      2 |  1926 | Chrysler   | Imperial         
+... [4]>      3 |  1950 | Hillman    | Minx Magnificent 
+... [4]>      4 |  1953 | Chevrolet  | Corvette         
+... [4]>      5 |  1954 | Chevrolet  | Corvette         
+... [4]>      6 |  1954 | Cadillac   | Fleetwood        
+... [4]>      7 |  1955 | Chevrolet  | Corvette         
+... [4]>      8 |  1955 | Ford       | Thunderbird      
+... [4]>      9 |  1956 | Chevrolet  | Corvette         
+... [4]>     10 |  1957 | Chevrolet  | Corvette         
+... [4]>     11 |  1957 | BMW        | 600              
+... [4]>     12 |  1958 | Chevrolet  | Corvette         
+... [4]>     13 |  1958 | BMW        | 600              
+... [4]>     14 |  1958 | Ford       | Thunderbird      
+... [4]>     15 |  1959 | Austin     | Mini             
+... [4]>     16 |  1959 | Chevrolet  | Corvette         
+... [4]>     17 |  1959 | BMW        | 600              
+... [4]>     18 |  1960 | Chevrolet  | Corvair          
+... [4]>     19 |  1960 | Chevrolet  | Corvette         
+... [4]> ;   
+There was a problem with your SQL syntax:
+
+	unterminated quoted string at or near "'
+  id   | year  | brand_name |       name       
+-------+-------+------------+------------------
+     1 |  1909 | Ford       | Model T          
+     2 |  1926 | Chrysler   | Imperial         
+     3 |  1950 | Hillman    | Minx Magnificent 
+     4 |  1953 | Chevrolet  | Corvette         
+     5 |  1954 | Chevrolet  | Corvette         
+     6 |  1954 | Cadillac   | Fleetwood        
+     7 |  1955 | Chevrolet  | Corvette         
+     8 |  1955 | Ford       | Thunderbird      
+     9 |  1956 | Chevrolet  | Corvette         
+    10 |  1957 | Chevrolet  | Corvette         
+    11 |  1957 | BMW        | 600              
+    12 |  1958 | Chevrolet  | Corvette         
+    13 |  1958 | BMW        | 600              
+    14 |  1958 | Ford       | Thunderbird      
+    15 |  1959 | Austin     | Mini             
+    16 |  1959 | Chevrolet  | Corvette         
+    17 |  1959 | BMW        | 600              
+    18 |  1960 | Chevrolet  | Corvair          
+    19 |  1960 | Chevrolet  | Corvette         
+;"
+LINE 2: ...N brands ON models.brand_name = brands.name WHERE models = '
+                                                                      ^
+
+
+
+SQL [4]> SELECT brand_name, models.name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE name  = 'Ford';
+There was a problem with your SQL syntax:
+
+	column reference "name" is ambiguous
+LINE 2: ...N brands ON models.brand_name = brands.name WHERE name  = 'F...
+                                                             ^
+
+
+
+SQL [4]> SELECT brand_name, models.name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE models.name  = 'Ford';
+(your syntax was legal but your query returned no results)
+
+SQL [4]> SELECT brand_name, models.name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE models.name  = 'Mustang';
+
+ brand_name |  name   | headquarters 
+------------+---------+--------------
+ Ford       | Mustang | Dearborn, MI 
+(1 rows)
+
+(results do not match answer)
+
+
+SQL [4]> SELECT models.name,brand_name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE models.name  = 'Mustang';
+
+  name   | brand_name | headquarters 
+---------+------------+--------------
+ Mustang | Ford       | Dearborn, MI 
+(1 rows)
+
+	Correct!
+
+SELECT models.name,brand_name, headquarters FROM models JOIN brands ON models.brand_name = brands.name WHERE models.name  = 'Mustang';
+
+	Moving on...
+
+
+Problem  5
+----------
+
+
+
+Task: Select all rows for the three oldest brands from the brands
+table.
+
+The result set should be:
+  id   |    name    | founded |    headquarters     | discontinued
+-------+------------+---------+---------------------+--------------
+    10 | Studebaker |    1852 | South Bend, Indiana |         1967
+    13 | Rambler    |    1901 | Kenosha, Washington |         1969
+     6 | Cadillac   |    1902 | New York City, NY   |
+(3 rows)
+
+
+SQL [5]> /hint
+... [5]> /hint;
+There was a problem with your SQL syntax:
+
+	syntax error at or near "/"
+LINE 2: /hint
+        ^
+
+
+
+SQL [5]> \hint
+Use LIMIT and ORDER BY.
+
+SQL [5]> SELECT * FROM models ORDER BY brands LIMIT 3;
+There was a problem with your SQL syntax:
+
+	column "brands" does not exist
+LINE 2: SELECT * FROM models ORDER BY brands LIMIT 3;
+                                      ^
+
+
+
+SQL [5]> SELECT * FROM models ORDER BY founded LIMIT 3;
+There was a problem with your SQL syntax:
+
+	column "founded" does not exist
+LINE 2: SELECT * FROM models ORDER BY founded LIMIT 3;
+                                      ^
+
+
+
+SQL [5]> SELECT * FROM brands ORDER BY founded LIMIT 3;
+
+  id   |    name    | founded |    headquarters     | discontinued 
+-------+------------+---------+---------------------+--------------
+     9 | Studebaker |    1852 | South Bend, Indiana |         1967 
+    12 | Rambler    |    1901 | Kenosha, Washington |         1969 
+     5 | Cadillac   |    1902 | New York City, NY   |              
+(3 rows)
+
+	Correct!
+
+SELECT * FROM brands ORDER BY founded LIMIT 3;
+
+	Moving on...
+
+
+Problem  6
+----------
+
+
+
+Task: Count the Ford models in the database The output should be a 
+number.
+
+The result set should be:
+   count
+------------
+          6
+(1 rows)
+
+
+SQL [6]> \hint
+Use the COUNT aggregate function.
+
+SQL [6]> SELECT COUNT(*) FROM models;
+
+   count    
+------------
+         47 
+(1 rows)
+
+(results do not match answer)
+
+
+SQL [6]> SELECT COUNT(*) FROM models = 'Ford';
+There was a problem with your SQL syntax:
+
+	syntax error at or near "="
+LINE 2: SELECT COUNT(*) FROM models = 'Ford';
+                                    ^
+
+
+
+SQL [6]> SELECT COUNT(*) FROM models WHERE brand_name = 'Ford';
+
+   count    
+------------
+          6 
+(1 rows)
+
+	Correct!
+
+SELECT COUNT(*) FROM models WHERE brand_name = 'Ford';
+
+	Moving on...
+
+
+Problem  7
+----------
+
+
+
+Task: Select the name of any and all car brands that are not 
+discontinued.
+
+The result set should be:
+   name
+-----------
+ Ford
+ Chrysler
+ Chevrolet
+ Cadillac
+ BMW
+ Buick
+ Tesla
+(7 rows)
+
+
+SQL [7]> \hint
+Check for a NULL value in the discontinued field.
+
+SQL [7]> SELECT * FROM brands;
+
+  id   |    name    | founded |            headquarters            | discontinued 
+-------+------------+---------+------------------------------------+--------------
+     1 | Ford       |    1903 | Dearborn, MI                       |              
+     2 | Chrysler   |    1925 | Auburn Hills, Michigan             |              
+     3 | Hillman    |    1907 | Ryton-on-Dunsmore, England         |         1981 
+     4 | Chevrolet  |    1911 | Detroit, Michigan                  |              
+     5 | Cadillac   |    1902 | New York City, NY                  |              
+     6 | BMW        |    1916 | Munich, Bavaria, Germany           |              
+     7 | Austin     |    1905 | Longbridge, England                |         1987 
+     8 | Fairthorpe |    1954 | Chalfont St Peter, Buckinghamshire |         1976 
+     9 | Studebaker |    1852 | South Bend, Indiana                |         1967 
+    10 | Pontiac    |    1926 | Detroit, MI                        |         2010 
+    11 | Buick      |    1903 | Detroit, MI                        |              
+    12 | Rambler    |    1901 | Kenosha, Washington                |         1969 
+    13 | Plymouth   |    1928 | Auburn Hills, Michigan             |         2001 
+    14 | Tesla      |    2003 | Palo Alto, CA                      |              
+(14 rows)
+
+(results do not match answer)
+
+
+SQL [7]> SELECT name FROM brands WHERE discontinued = 'null';
+There was a problem with your SQL syntax:
+
+	invalid input syntax for integer: "null"
+LINE 2: SELECT name FROM brands WHERE discontinued = 'null';
+                                                     ^
+
+
+
+SQL [7]> SELECT name FROM brands WHERE discontinued = Null;
+(your syntax was legal but your query returned no results)
+
+SQL [7]> SELECT name FROM brands WHERE discontinued IS Null;
+
+   name    
+-----------
+ Ford      
+ Chrysler  
+ Chevrolet 
+ Cadillac  
+ BMW       
+ Buick     
+ Tesla     
+(7 rows)
+
+	Correct!
+
+SELECT name FROM brands WHERE discontinued IS Null;
+
+	Moving on...
+
+
+Problem  8
+----------
+
+
+
+Task: Select everything from rows 15-24 of the models table in 
+alphabetical order by name. The result set should have 10 records.
+
+The result set should be:
+  id   | year  | brand_name |   name
+-------+-------+------------+----------
+    38 |  1963 | Chevrolet  | Corvette
+    11 |  1957 | Chevrolet  | Corvette
+    20 |  1960 | Chevrolet  | Corvette
+     5 |  1953 | Chevrolet  | Corvette
+    13 |  1958 | Chevrolet  | Corvette
+    10 |  1956 | Chevrolet  | Corvette
+    17 |  1959 | Chevrolet  | Corvette
+    26 |  1961 | Chevrolet  | Corvette
+     8 |  1955 | Chevrolet  | Corvette
+    28 |  1962 | Chevrolet  | Corvette
+(10 rows)
+
+
+SQL [8]> \hint
+Use LIMIT, ORDER BY, and OFFSET.
+
+SQL [8]> SELECT * FROM models ORDER BY name OFFSET 15;
+
+  id   | year  | brand_name |    name    
+-------+-------+------------+------------
+    27 |  1962 | Chevrolet  | Corvette   
+    19 |  1960 | Chevrolet  | Corvette   
+    25 |  1961 | Chevrolet  | Corvette   
+    37 |  1963 | Chevrolet  | Corvette   
+    16 |  1959 | Chevrolet  | Corvette   
+     9 |  1956 | Chevrolet  | Corvette   
+    10 |  1957 | Chevrolet  | Corvette   
+     5 |  1954 | Chevrolet  | Corvette   
+    33 |  1963 | Ford       | E-Series   
+    20 |  1960 | Fillmore   | Fillmore   
+     6 |  1954 | Cadillac   | Fleetwood  
+    45 |  1964 | Plymouth   | Fury       
+    41 |  1964 | Pontiac    | GTO        
+    40 |  1964 | Ford       | Galaxie    
+    26 |  1962 | Pontiac    | Grand Prix 
+    35 |  1963 | Pontiac    | Grand Prix 
+    44 |  1964 | Pontiac    | Grand Prix 
+     2 |  1926 | Chrysler   | Imperial   
+    42 |  1964 | Pontiac    | LeMans     
+    30 |  1963 | Austin     | Mini       
+(32 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [8]> SELECT * FROM models ORDER BY name OFFSET 15 LIMIT 10;
+
+  id   | year  | brand_name |   name   
+-------+-------+------------+----------
+    27 |  1962 | Chevrolet  | Corvette 
+    19 |  1960 | Chevrolet  | Corvette 
+    25 |  1961 | Chevrolet  | Corvette 
+    37 |  1963 | Chevrolet  | Corvette 
+    16 |  1959 | Chevrolet  | Corvette 
+     9 |  1956 | Chevrolet  | Corvette 
+    10 |  1957 | Chevrolet  | Corvette 
+     5 |  1954 | Chevrolet  | Corvette 
+    33 |  1963 | Ford       | E-Series 
+    20 |  1960 | Fillmore   | Fillmore 
+(10 rows)
+
+(results do not match answer)
+
+
+SQL [8]> SELECT * FROM models ORDER BY name OFFSET 14 LIMIT 10;
+
+  id   | year  | brand_name |   name   
+-------+-------+------------+----------
+    38 |  1964 | Chevrolet  | Corvette 
+    27 |  1962 | Chevrolet  | Corvette 
+    19 |  1960 | Chevrolet  | Corvette 
+    25 |  1961 | Chevrolet  | Corvette 
+    37 |  1963 | Chevrolet  | Corvette 
+    16 |  1959 | Chevrolet  | Corvette 
+     9 |  1956 | Chevrolet  | Corvette 
+    10 |  1957 | Chevrolet  | Corvette 
+     5 |  1954 | Chevrolet  | Corvette 
+    33 |  1963 | Ford       | E-Series 
+(10 rows)
+
+	Correct!
+
+SELECT * FROM models ORDER BY name OFFSET 14 LIMIT 10;
+
+	Moving on...
+
+
+Problem  9
+----------
+
+
+
+Task: Select the brand, name, and year the model's brand was 
+founded for all of the models from 1960. Include row(s)
+for model(s) even if their brand(s) are not in the brands table.
+
+Note that in the result set, the year the brand was founded should be NULL if
+the brand is not in the brands table.
+
+So, the result set should be:
+   name   | brand_name | founded
+----------+------------+---------
+ Corvette | Chevrolet  |    1911
+ Corvair  | Chevrolet  |    1911
+ Rockette | Fairthorpe |    1954
+ Fillmore | Fillmore   |
+(4 rows)
+
+
+SQL [9]> \hint
+Make sure to show the brand_name for even the models that don't have
+brands in the brand table using the brand_name field in the models table.
+
+SQL [9]> SELECT brand, name, year FROM brands JOIN models ON brands.name = models.brands_name WHERE models.name = '1960';
+There was a problem with your SQL syntax:
+
+	column models.brands_name does not exist
+LINE 2: ...me, year FROM brands JOIN models ON brands.name = models.bra...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "models.brand_name".
+
+
+
+SQL [9]> SELECT brand, name, year FROM brands JOIN models ON brands.name = models.brand_name WHERE models.name = '1960';
+There was a problem with your SQL syntax:
+
+	column "brand" does not exist
+LINE 2: SELECT brand, name, year FROM brands JOIN models ON brands.n...
+               ^
+
+
+
+SQL [9]> SELECT brand_name, name, year FROM brands JOIN models ON brands.name = models.brand_name WHERE models.name = '1960';
+There was a problem with your SQL syntax:
+
+	column reference "name" is ambiguous
+LINE 2: SELECT brand_name, name, year FROM brands JOIN models ON bra...
+                           ^
+
+
+
+SQL [9]> SELECT brand_name, models.name, year FROM brands JOIN models ON brands.name = models.brand_name WHERE models.name = '1960';
+(your syntax was legal but your query returned no results)
+
+SQL [9]> SELECT brand_name, models.name, year FROM brands JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+
+ brand_name |   name   | year  
+------------+----------+-------
+ Chevrolet  | Corvette |  1960 
+ Chevrolet  | Corvair  |  1960 
+ Fairthorpe | Rockette |  1960 
+(3 rows)
+
+(results do not match answer)
+
+
+SQL [9]> SELECT brand_name, models.name, founded FROM brands JOIN models ON brands.name = models.brand_name WHERE models.founded = '1960';
+There was a problem with your SQL syntax:
+
+	column models.founded does not exist
+LINE 2: ...N models ON brands.name = models.brand_name WHERE models.fou...
+                                                             ^
+
+
+
+SQL [9]> SELECT models.name, brand_name founded FROM brands JOIN models ON brands.name = models.brand_name WHERE models.founded = '1960';
+There was a problem with your SQL syntax:
+
+	column models.founded does not exist
+LINE 2: ...N models ON brands.name = models.brand_name WHERE models.fou...
+                                                             ^
+
+
+
+SQL [9]> SELECT models.name, brand_name, founded FROM brands JOIN models ON brands.name = models.brand_name WHERE brands.founded = '1960';
+(your syntax was legal but your query returned no results)
+
+SQL [9]> SELECT models.name, brand_name, founded FROM brands JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+
+   name   | brand_name | founded 
+----------+------------+---------
+ Corvette | Chevrolet  |    1911 
+ Corvair  | Chevrolet  |    1911 
+ Rockette | Fairthorpe |    1954 
+(3 rows)
+
+(results do not match answer)
+
+
+SQL [9]> SELECT models.name, brand_name, founded FROM brands OUTER JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+There was a problem with your SQL syntax:
+
+	syntax error at or near "OUTER"
+LINE 2: ...LECT models.name, brand_name, founded FROM brands OUTER JOIN...
+                                                             ^
+
+
+
+SQL [9]> SELECT models.name, brand_name, founded FROM brands LEFT OUTER JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+
+   name   | brand_name | founded 
+----------+------------+---------
+ Corvette | Chevrolet  |    1911 
+ Corvair  | Chevrolet  |    1911 
+ Rockette | Fairthorpe |    1954 
+(3 rows)
+
+(results do not match answer)
+
+
+SQL [9]> SELECT models.name, brand_name, founded FROM brands RIGHT OUTER JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+
+   name   | brand_name | founded 
+----------+------------+---------
+ Corvette | Chevrolet  |    1911 
+ Corvair  | Chevrolet  |    1911 
+ Rockette | Fairthorpe |    1954 
+ Fillmore | Fillmore   |         
+(4 rows)
+
+	Correct!
+
+SELECT models.name, brand_name, founded FROM brands RIGHT OUTER JOIN models ON brands.name = models.brand_name WHERE models.year = '1960';
+
+	Moving on...
+
+
+Problem 10
+----------
+
+Currently, the query below selects all models regardless of
+whether their brands are in the brands table. For example, included in the output
+are the models Fillmore and Outback.
+
+  SELECT b.name,
+         b.founded,
+         m.name
+  FROM models AS m
+    LEFT JOIN brands AS b
+      ON b.name = m.brand_name
+  WHERE b.discontinued IS NULL;
+
+Task: Modify the query so that it shows all brands that are 
+not discontinued regardless of whether they have any models in the models table.
+The correct output should not include records for Fillmore and Outback, but should
+show information about Tesla, a brand with no models in the models table.
+
+SQL [10]> \hint                                                                                     Think about the meaning of table ordering in the LEFT JOIN clause.
+What does it mean to LEFT JOIN table A to table B? What does it mean to 
+left join table B to table A?
+
+SQL [10]>  SELECT b.name,
+... [10]>          b.founded,
+... [10]>          m.name
+... [10]>   FROM models AS m
+... [10]>     LEFT JOIN brands AS b
+... [10]>       ON b.name = m.brand_name
+... [10]>   WHERE b.discontinued IS NULL;
+
+   name    | founded |    name     
+-----------+---------+-------------
+ Ford      |    1903 | Model T     
+ Chrysler  |    1925 | Imperial    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Cadillac  |    1902 | Fleetwood   
+ Chevrolet |    1911 | Corvette    
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvair     
+ Chevrolet |    1911 | Corvette    
+           |         | Fillmore    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+(27 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [10]> SQ
+
+SQL [10]> ;
+There was a problem with your SQL syntax:
+
+	can't execute an empty query
+
+
+SQL [10]> SELECT b.name,
+... [10]>          b.founded,
+... [10]>          m.name
+... [10]> FROM 
+... [10]>       models AS m
+... [10]> LEFT JOIN 
+... [10]>       brands AS b ON b.name = m.brand_name
+... [10]> WHERE b.discontinued IS NULL;
+
+   name    | founded |    name     
+-----------+---------+-------------
+ Ford      |    1903 | Model T     
+ Chrysler  |    1925 | Imperial    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Cadillac  |    1902 | Fleetwood   
+ Chevrolet |    1911 | Corvette    
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvair     
+ Chevrolet |    1911 | Corvette    
+           |         | Fillmore    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+(27 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [10]> SELECT b.name,
+... [10]>          b.founded,
+... [10]>          m.name
+... [10]> FROM 
+... [10]>       models AS m
+... [10]> LEFT JOIN 
+... [10]>       brands AS b ON b.name = m.brand_name
+... [10]> WHERE b.discontinued IS NULL;
+
+   name    | founded |    name     
+-----------+---------+-------------
+ Ford      |    1903 | Model T     
+ Chrysler  |    1925 | Imperial    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Cadillac  |    1902 | Fleetwood   
+ Chevrolet |    1911 | Corvette    
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvair     
+ Chevrolet |    1911 | Corvette    
+           |         | Fillmore    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+(27 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [10]> 
+
+SQL [10]> SELECT b.name,
+... [10]>          b.founded,
+... [10]>          m.name
+... [10]> FROM 
+... [10]>       models AS m
+... [10]> RIGHT JOIN 
+... [10]>       brands AS b ON b.name = m.brand_name
+... [10]> WHERE b.discontinued IS NULL;
+
+   name    | founded |    name     
+-----------+---------+-------------
+ Ford      |    1903 | Model T     
+ Chrysler  |    1925 | Imperial    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Cadillac  |    1902 | Fleetwood   
+ Chevrolet |    1911 | Corvette    
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Ford      |    1903 | Thunderbird 
+ Chevrolet |    1911 | Corvette    
+ BMW       |    1916 | 600         
+ Chevrolet |    1911 | Corvair     
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Chevrolet |    1911 | Corvette    
+ Buick     |    1903 | Special     
+(27 rows, truncated for display at 20)
+
+	Correct!
+
+SELECT b.name,
+         b.founded,
+         m.name
+FROM 
+	models AS m
+RIGHT JOIN 
+	brands AS b ON b.name = m.brand_name
+WHERE b.discontinued IS NULL;
+
+	Moving on...
+
+
+Problem 11
+----------
+
+Currently, the query below shows all models, regardless of whether
+their brands are in the brands table. For example, we again see that Fillmore
+and Outback are in the result set.
+
+  SELECT m.name,
+         m.brand_name,
+         b.founded
+  FROM models AS m
+    LEFT JOIN brands AS b
+      ON b.name = m.brand_name;
+
+Task: Modify the query so it only selects models whose brands ARE in the brands table.
+So, we shouldn't see models who brands aren't in the brands table (a.k.a. Fillmore,
+Outback) nor should we see information about brands who don't have any models in 
+the models table (a.k.a. Tesla).
+
+SQL [11]> SELECT m.name,
+... [11]>          m.brand_name,
+... [11]>          b.founded
+... [11]>   FROM models AS m
+... [11]>     LEFT JOIN brands AS b
+... [11]>       ON b.name = m.brand_name;
+
+       name       | brand_name | founded 
+------------------+------------+---------
+ Model T          | Ford       |    1903 
+ Imperial         | Chrysler   |    1925 
+ Minx Magnificent | Hillman    |    1907 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Fleetwood        | Cadillac   |    1902 
+ Corvette         | Chevrolet  |    1911 
+ Thunderbird      | Ford       |    1903 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Thunderbird      | Ford       |    1903 
+ Mini             | Austin     |    1905 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvair          | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Fillmore         | Fillmore   |         
+(47 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [11]> SELECT m.name,
+... [11]>          m.brand_name,
+... [11]>          b.founded
+... [11]>   FROM models AS m
+... [11]>     RIGHT JOIN brands AS b
+... [11]>       ON b.name = m.brand_name;
+
+       name       | brand_name | founded 
+------------------+------------+---------
+ Model T          | Ford       |    1903 
+ Imperial         | Chrysler   |    1925 
+ Minx Magnificent | Hillman    |    1907 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Fleetwood        | Cadillac   |    1902 
+ Corvette         | Chevrolet  |    1911 
+ Thunderbird      | Ford       |    1903 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Thunderbird      | Ford       |    1903 
+ Mini             | Austin     |    1905 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvair          | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Rockette         | Fairthorpe |    1954 
+(47 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [11]> SELECT m.name,
+... [11]>          m.brand_name,
+... [11]>          b.founded
+... [11]>   FROM models AS m
+... [11]>     INNER JOIN brands AS b
+... [11]>       ON b.name = m.brand_name;
+
+       name       | brand_name | founded 
+------------------+------------+---------
+ Model T          | Ford       |    1903 
+ Imperial         | Chrysler   |    1925 
+ Minx Magnificent | Hillman    |    1907 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Fleetwood        | Cadillac   |    1902 
+ Corvette         | Chevrolet  |    1911 
+ Thunderbird      | Ford       |    1903 
+ Corvette         | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Thunderbird      | Ford       |    1903 
+ Mini             | Austin     |    1905 
+ Corvette         | Chevrolet  |    1911 
+ 600              | BMW        |    1916 
+ Corvair          | Chevrolet  |    1911 
+ Corvette         | Chevrolet  |    1911 
+ Rockette         | Fairthorpe |    1954 
+(46 rows, truncated for display at 20)
+
+	Correct!
+
+SELECT m.name,
+         m.brand_name,
+         b.founded
+  FROM models AS m
+    INNER JOIN brands AS b
+      ON b.name = m.brand_name;
+
+	Moving on...
+
+
+Problem 12
+----------
+
+Currently, the query below returns all brands who have models 
+after the year 1940.
+
+  SELECT b.name,
+         founded
+  FROM brands AS b
+    LEFT JOIN models AS m
+      ON b.name = m.brand_name
+  WHERE models.year > 1940;
+
+Task: Modify the query so that it only selects brands that do NOT have any
+models in the models table.
+
+The correct result set is:
+
+ name  | founded
+-------+---------
+ Tesla |    2003
+(1 rows)
+
+SQL [12]> Task: Modify the query so that it only selects brands that do NOT have any
+... [12]> models in the models table.
+... [12]> 
+... [12]> The correct result set is:
+... [12]> 
+... [12]>  name  | founded
+... [12]> -------+---------
+... [12]>  Tesla |    2003;
+There was a problem with your SQL syntax:
+
+	syntax error at or near "Task"
+LINE 2: Task: Modify the query so that it only selects brands that d...
+        ^
+
+
+
+SQL [12]> SELECT b.name,
+... [12]>          founded
+... [12]>   FROM brands AS b
+... [12]>     LEFT JOIN models AS m
+... [12]>       ON b.name = m.brand_name
+... [12]>   WHERE models.year > 1940;
+There was a problem with your SQL syntax:
+
+	invalid reference to FROM-clause entry for table "models"
+LINE 7:   WHERE models.year > 1940;
+                ^
+HINT:  Perhaps you meant to reference the table alias "m".
+
+
+
+SQL [12]> \hint
+There's no need to change the type of join in this query; simply
+modify the WHERE clause.
+
+SQL [12]> SELECT b.name,
+... [12]>          founded
+... [12]>   FROM brands AS b
+... [12]>     LEFT JOIN models AS m
+... [12]>       ON b.name = m.brand_name;
+
+    name    | founded 
+------------+---------
+ Ford       |    1903 
+ Chrysler   |    1925 
+ Hillman    |    1907 
+ Chevrolet  |    1911 
+ Chevrolet  |    1911 
+ Cadillac   |    1902 
+ Chevrolet  |    1911 
+ Ford       |    1903 
+ Chevrolet  |    1911 
+ Chevrolet  |    1911 
+ BMW        |    1916 
+ Chevrolet  |    1911 
+ BMW        |    1916 
+ Ford       |    1903 
+ Austin     |    1905 
+ Chevrolet  |    1911 
+ BMW        |    1916 
+ Chevrolet  |    1911 
+ Chevrolet  |    1911 
+ Fairthorpe |    1954 
+(47 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [12]> SELECT b.name,
+... [12]>          founded
+... [12]>   FROM brands AS b
+... [12]>     LEFT JOIN models AS m
+... [12]>       ON b.name = m.brand_name
+... [12]>   WHERE models.name IS NULL;
+There was a problem with your SQL syntax:
+
+	invalid reference to FROM-clause entry for table "models"
+LINE 7:   WHERE models.name IS NULL;
+                ^
+HINT:  Perhaps you meant to reference the table alias "m".
+
+
+
+SQL [12]> SELECT b.name,
+... [12]>          founded
+... [12]>   FROM brands AS b
+... [12]>     LEFT JOIN models AS m
+... [12]>       ON b.name = m.brand_name
+... [12]>   WHERE m.name IS NULL;
+
+ name  | founded 
+-------+---------
+ Tesla |    2003 
+(1 rows)
+
+	Correct!
+
+SELECT b.name,
+         founded
+  FROM brands AS b
+    LEFT JOIN models AS m
+      ON b.name = m.brand_name
+  WHERE m.name IS NULL;
+
+	Moving on...
+
+
+Problem 13
+----------
+
+The query below shows some brand information about each model 
+in the models table whose brand has been discontinued.
+
+  SELECT b.name,
+         m.name,
+         m.year,
+         b.discontinued
+  FROM models AS m
+    LEFT JOIN brands AS b
+      ON m.brand_name = b.name
+  WHERE b.discontinued IS NOT NULL
+  ORDER BY b.name, m.name, m.year;
+
+Task: Modify the query to add another field to the results that gives 
+the number of years from the year of the model until the brand becomes 
+discontinued.
+
+Display this new field with the name years_until_brand_discontinued. The correct
+result set is:
+
+    name    |       name       | year | discontinued | years_until_brand_discontinued
+------------+------------------+------+--------------+--------------------------------
+ Austin     | Mini             | 1959 |         1987 |                             28
+ Austin     | Mini             | 1963 |         1987 |                             24
+ Austin     | Mini Cooper      | 1961 |         1987 |                             26
+ Austin     | Mini Cooper      | 1964 |         1987 |                             23
+ Austin     | Mini Cooper S    | 1963 |         1987 |                             24
+ Fairthorpe | Rockette         | 1960 |         1976 |                             16
+ Hillman    | Minx Magnificent | 1950 |         1981 |                             31
+ Plymouth   | Fury             | 1964 |         2001 |                             37
+ Pontiac    | Bonneville       | 1964 |         2010 |                             46
+ Pontiac    | GTO              | 1964 |         2010 |                             46
+ Pontiac    | Grand Prix       | 1962 |         2010 |                             48
+ Pontiac    | Grand Prix       | 1963 |         2010 |                             47
+ Pontiac    | Grand Prix       | 1964 |         2010 |                             46
+ Pontiac    | LeMans           | 1964 |         2010 |                             46
+ Pontiac    | Tempest          | 1961 |         2010 |                             49
+ Rambler    | Classic          | 1963 |         1969 |                              6
+ Studebaker | Avanti           | 1961 |         1967 |                              6
+ Studebaker | Avanti           | 1962 |         1967 |                              5
+ Studebaker | Avanti           | 1963 |         1967 |                              4
+ Studebaker | Avanti           | 1964 |         1967 |                              3
+(20 rows)
+
+SQL [13]> \hint
+You can use AS to rename a field in the result set.
+
+SQL [13]> SELECT b.name,
+... [13]>          m.name,
+... [13]>          m.year,
+... [13]>          b.discontinued
+... [13]>   FROM models AS m
+... [13]>     LEFT JOIN brands AS b
+... [13]>       ON m.brand_name = b.name
+... [13]>   WHERE b.discontinued IS NOT NULL
+... [13]>   ORDER BY b.name, m.name, m.year;
+
+    name    |       name       | year  | discontinued 
+------------+------------------+-------+--------------
+ Austin     | Mini             |  1959 |         1987 
+ Austin     | Mini             |  1963 |         1987 
+ Austin     | Mini Cooper      |  1961 |         1987 
+ Austin     | Mini Cooper      |  1964 |         1987 
+ Austin     | Mini Cooper S    |  1963 |         1987 
+ Fairthorpe | Rockette         |  1960 |         1976 
+ Hillman    | Minx Magnificent |  1950 |         1981 
+ Plymouth   | Fury             |  1964 |         2001 
+ Pontiac    | Bonneville       |  1964 |         2010 
+ Pontiac    | GTO              |  1964 |         2010 
+ Pontiac    | Grand Prix       |  1962 |         2010 
+ Pontiac    | Grand Prix       |  1963 |         2010 
+ Pontiac    | Grand Prix       |  1964 |         2010 
+ Pontiac    | LeMans           |  1964 |         2010 
+ Pontiac    | Tempest          |  1961 |         2010 
+ Rambler    | Classic          |  1963 |         1969 
+ Studebaker | Avanti           |  1961 |         1967 
+ Studebaker | Avanti           |  1962 |         1967 
+ Studebaker | Avanti           |  1963 |         1967 
+ Studebaker | Avanti           |  1964 |         1967 
+(20 rows)
+
+(results do not match answer)
+
+
+SQL [13]> SELECT b.name,
+... [13]>          m.name,
+... [13]>          m.year,
+... [13]>          b.discontinued
+... [13]>   FROM models AS m
+... [13]>     LEFT JOIN brands AS b
+... [13]>       ON m.brand_name = b.name
+... [13]>   WHERE b.discontinued IS NOT NULL
+... [13]>   ORDER BY b.name, m.name, m.year';
+There was a problem with your SQL syntax:
+
+	unterminated quoted string at or near "';"
+LINE 10:   ORDER BY b.name, m.name, m.year';
+                                          ^
+
+
+
+SQL [13]> SELECT b.name,
+... [13]>          m.name,
+... [13]>          m.year,
+... [13]>          b.discontinued,
+... [13]>          b.discontinued - m.year
+... [13]>   FROM models AS m
+... [13]>     LEFT JOIN brands AS b
+... [13]>       ON m.brand_name = b.name
+... [13]>   WHERE b.discontinued IS NOT NULL
+... [13]>   ORDER BY b.name, m.name, m.year;
+
+    name    |       name       | year  | discontinued | ?column? 
+------------+------------------+-------+--------------+----------
+ Austin     | Mini             |  1959 |         1987 |       28 
+ Austin     | Mini             |  1963 |         1987 |       24 
+ Austin     | Mini Cooper      |  1961 |         1987 |       26 
+ Austin     | Mini Cooper      |  1964 |         1987 |       23 
+ Austin     | Mini Cooper S    |  1963 |         1987 |       24 
+ Fairthorpe | Rockette         |  1960 |         1976 |       16 
+ Hillman    | Minx Magnificent |  1950 |         1981 |       31 
+ Plymouth   | Fury             |  1964 |         2001 |       37 
+ Pontiac    | Bonneville       |  1964 |         2010 |       46 
+ Pontiac    | GTO              |  1964 |         2010 |       46 
+ Pontiac    | Grand Prix       |  1962 |         2010 |       48 
+ Pontiac    | Grand Prix       |  1963 |         2010 |       47 
+ Pontiac    | Grand Prix       |  1964 |         2010 |       46 
+ Pontiac    | LeMans           |  1964 |         2010 |       46 
+ Pontiac    | Tempest          |  1961 |         2010 |       49 
+ Rambler    | Classic          |  1963 |         1969 |        6 
+ Studebaker | Avanti           |  1961 |         1967 |        6 
+ Studebaker | Avanti           |  1962 |         1967 |        5 
+ Studebaker | Avanti           |  1963 |         1967 |        4 
+ Studebaker | Avanti           |  1964 |         1967 |        3 
+(20 rows)
+
+	Correct!
+
+SELECT b.name,
+         m.name,
+         m.year,
+         b.discontinued,
+         b.discontinued - m.year
+  FROM models AS m
+    LEFT JOIN brands AS b
+      ON m.brand_name = b.name
+  WHERE b.discontinued IS NOT NULL
+  ORDER BY b.name, m.name, m.year;
+
+	Moving on...
+
+
+Problem 14
+----------
+
+FURTHER STUDY
+
+Task: Select the name of any brand with more than 5 models in the 
+database using a HAVING clause.
+
+The correct result set is:
+
+ brand_name
+------------
+ Chevrolet
+ Pontiac
+ Ford
+(3 rows)
+
+
+SQL [14]> SELECT * FROM models;
+
+  id   | year  | brand_name |       name       
+-------+-------+------------+------------------
+     1 |  1909 | Ford       | Model T          
+     2 |  1926 | Chrysler   | Imperial         
+     3 |  1950 | Hillman    | Minx Magnificent 
+     4 |  1953 | Chevrolet  | Corvette         
+     5 |  1954 | Chevrolet  | Corvette         
+     6 |  1954 | Cadillac   | Fleetwood        
+     7 |  1955 | Chevrolet  | Corvette         
+     8 |  1955 | Ford       | Thunderbird      
+     9 |  1956 | Chevrolet  | Corvette         
+    10 |  1957 | Chevrolet  | Corvette         
+    11 |  1957 | BMW        | 600              
+    12 |  1958 | Chevrolet  | Corvette         
+    13 |  1958 | BMW        | 600              
+    14 |  1958 | Ford       | Thunderbird      
+    15 |  1959 | Austin     | Mini             
+    16 |  1959 | Chevrolet  | Corvette         
+    17 |  1959 | BMW        | 600              
+    18 |  1960 | Chevrolet  | Corvair          
+    19 |  1960 | Chevrolet  | Corvette         
+    20 |  1960 | Fillmore   | Fillmore         
+(47 rows, truncated for display at 20)
+
+(results do not match answer)
+
+
+SQL [14]> SELECT * FROM models GROUP BY brand_name;
+There was a problem with your SQL syntax:
+
+    column "models.id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 2: SELECT * FROM models GROUP BY brand_name;
+               ^
+
+
+
+SQL [14]> SELECT brand_name FROM models GROUP BY brand_name;
+
+ brand_name 
+------------
+ Studebaker 
+ Plymouth   
+ Hillman    
+ BMW        
+ Chrysler   
+ Cadillac   
+ Fillmore   
+ Chevrolet  
+ Rambler    
+ Fairthorpe 
+ Buick      
+ Pontiac    
+ Austin     
+ Ford       
+(14 rows)
+
+(results do not match answer)
+
+
+SQL [14]> SELECT COUNT(*) FROM models GROUP BY brand_name;
+
+   count    
+------------
+          4 
+          1 
+          1 
+          3 
+          1 
+          1 
+          1 
+         14 
+          1 
+          1 
+          1 
+          7 
+          5 
+          6 
+(14 rows)
+
+(results do not match answer)
+
+
+SQL [14]> SELECT COUNT(*), brand_name FROM models GROUP BY brand_name;
+
+   count    | brand_name 
+------------+------------
+          4 | Studebaker 
+          1 | Plymouth   
+          1 | Hillman    
+          3 | BMW        
+          1 | Chrysler   
+          1 | Cadillac   
+          1 | Fillmore   
+         14 | Chevrolet  
+          1 | Rambler    
+          1 | Fairthorpe 
+          1 | Buick      
+          7 | Pontiac    
+          5 | Austin     
+          6 | Ford       
+(14 rows)
+
+(results do not match answer)
+
+
+SQL [14]> SELECT COUNT(*), brand_name FROM models GROUP BY brand_name HAVING COUNT(*)> 5;
+
+   count    | brand_name 
+------------+------------
+         14 | Chevrolet  
+          7 | Pontiac    
+          6 | Ford       
+(3 rows)
+
+(results do not match answer)
+
+
+SQL [14]> SELECT brand_name FROM models GROUP BY brand_name HAVING COUNT(*)> 5; 
+
+ brand_name 
+------------
+ Chevrolet  
+ Pontiac    
+ Ford       
+(3 rows)
+
+    Correct!
+
+SELECT brand_name FROM models GROUP BY brand_name HAVING COUNT(*)> 5;
+
+    Moving on...
+
+
+Problem 15
+----------
+
+
+
+Task: Using a subquery, select the name and year of any model whose 
+year is the same year that ANY brand was founded.
+
+The result set should be:
+
+   name    | year
+-----------+-------
+ Imperial  |  1926
+ Corvette  |  1954
+ Fleetwood |  1954
+(3 rows)
+
+SQL [15]> 
